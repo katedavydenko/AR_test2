@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Практична робота №8: Кілька маркерів</title>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script>
+        // Реєструємо простий компонент, що змінює колір по кліку
+        AFRAME.registerComponent('change-color-on-click', {
+            init: function () {
+                const colors = ['red', 'blue', 'green', 'yellow'];
+                this.el.addEventListener('click', () => {
+                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                    this.el.setAttribute('color', randomColor);
+                });
+            }
+        });
+    </script>
+  </head>
+  <body style="margin : 0px; overflow: hidden;">
+    <!-- Додаємо 'detectionMode' та 'matrixCodeType' для кращого розпізнавання -->
+    <a-scene embedded arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+
+      <!-- 1. Перший маркер: barcode, значення 5 -->
+      <a-marker type="barcode" value="5">
+        <a-sphere radius="0.5" color="purple" change-color-on-click></a-sphere>
+      </a-marker>
+
+      <!-- 2. Другий маркер: barcode, значення 6 -->
+      <a-marker type="barcode" value="6">
+        <a-box color="teal" change-color-on-click></a-box>
+      </a-marker>
+
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
